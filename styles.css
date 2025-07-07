@@ -1,0 +1,620 @@
+/* 1. VARIABLES DE COLOR */
+:root {
+  --primary-color: #4A0E5C; /* Tu morado oscuro principal, para títulos y énfasis */
+  --secondary-color: #6c757d; /* Gris para textos secundarios */
+  --light-color: #f8f9fa; /* Gris muy claro, para fondos ligeros */
+  --dark-color: #343a40; /* Gris oscuro, para textos/títulos por defecto */
+
+  /* Colores específicos de tu diseño de UvaClub, según tus indicaciones */
+  --uvaclub-dark-blue-gradient-start: #091D47; /* Azul muy oscuro para el inicio del gradiente */
+  --uvaclub-dark-purple-gradient-end: #4A0E5C; /* Morado oscuro para el final del gradiente */
+  --uvaclub-background-light: #FFF3E5; /* El color de fondo principal de la web */
+  --uvaclub-text-on-light: #4A0E5C; /* Color de texto para fondos claros */
+  --uvaclub-text-on-dark: #FFF3E5; /* Color de texto para fondos oscuros/gradientes */
+
+  /* Aseguramos la fuente Poppins, aunque ya está en el HTML */
+  --font-family-base: 'Poppins', sans-serif;
+}
+
+/* 2. ESTILOS GENERALES */
+body {
+  font-family: var(--font-family-base);
+  color: var(--dark-color); /* Color de texto por defecto, más consistente */
+  background-color: var(--uvaclub-background-light); /* Fondo principal del body */
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+/* 3. NAVBAR */
+.navbar {
+  background-color: transparent; /* Transparente por defecto */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  padding: 15px 0;
+}
+
+.navbar.scrolled {
+  /* Al hacer scroll, queremos que la navbar tenga el color final del gradiente del hero para mantener la coherencia */
+  background-color: var(--uvaclub-dark-purple-gradient-end);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--uvaclub-text-on-dark); /* Color del texto del logo (si fuera texto) */
+}
+
+.nav-link {
+  color: var(--uvaclub-text-on-dark); /* Los enlaces son del color de texto para fondos oscuros */
+  font-weight: 500;
+  margin-left: 20px;
+  transition: color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--uvaclub-text-on-dark);
+  opacity: 0.8;
+}
+
+/* Estilos para el logo en la barra de navegación */
+.navbar-logo {
+  height: 30px; /* Ajustada a un tamaño más común para logos */
+  width: auto;
+  max-width: 1000px; /* Limitando el ancho máximo del logo en desktop */
+}
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    height: 30px; /* Un poco más pequeño en móviles */
+    max-width: 1000px; /* Limita el ancho en móviles */
+  }
+}
+
+/* 4. HERO */
+.hero-section {
+  /* ¡CAMBIOS AQUÍ! */
+  /* Orden de los fondos (de arriba hacia abajo):
+     1. Tu imagen de textura con sus propiedades (posición, tamaño, no-repeat).
+        - No necesitamos una capa de opacidad adicional para la imagen si el blend-mode ya la integra sutilmente.
+     2. Tu gradiente vertical principal.
+  */
+  background:
+    url('../imagenes/textura-hero.jpg') -0.023px -332.369px / 100.002% 125.885% no-repeat, /* 1. Tu imagen de textura con sus estilos */
+    linear-gradient(to bottom, var(--uvaclub-dark-blue-gradient-start), var(--uvaclub-dark-purple-gradient-end)); /* 2. ¡Tu gradiente vertical original! */
+  
+  /* El 'lightgray' de tu estilo original puede ser el background-color del elemento si es un fallback
+     o si quieres que se vea si la imagen no carga, pero usualmente con dos fondos no es necesario.
+     Si lo pones, iría así:
+     background-color: lightgray;
+  */
+
+  /* El background-blend-mode ahora necesita un valor para CADA capa de fondo en el mismo orden */
+  background-blend-mode: luminosity, normal; /* blend-mode para: (imagen de textura), (gradiente) */
+
+  min-height: 100vh;
+  padding-top: 120px; /* Espacio para el navbar fijo */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px; /* Ajusta la altura de la onda */
+  background-color: var(--uvaclub-background-light); /* Color de la onda, el mismo del body */
+  clip-path: ellipse(60% 100% at 50% 100%);
+  z-index: 1; /* Asegura que la onda esté por encima del fondo pero por debajo del contenido */
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2; /* Asegura que el contenido esté por encima de la ola */
+}
+
+/* H1 CUSTOM HERO: Color de texto para fondo oscuro (hero) */
+.hero-section .h1-custom {
+    color: var(--uvaclub-text-on-dark); /* #FFF3E5 */
+}
+
+/* P-CUSTOM HERO: Color de texto para fondo oscuro (hero) */
+.hero-section .p-custom {
+    color: var(--uvaclub-text-on-dark); /* #FFF3E5 */
+    opacity: 0.9;
+}
+
+/* Estilos para los botones genéricos, ajustados a tu paleta */
+.btn-primary { /* Botones primarios (como el CTA del hero) */
+  background-color: var(--uvaclub-text-on-dark); /* #FFF3E5 */
+  color: var(--uvaclub-dark-purple-gradient-end); /* Texto #4A0E5C */
+  border: none;
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-width: 178px;
+  height: 50px;
+}
+
+.btn-primary:hover {
+  background-color: rgba(255, 243, 229, 0.9); /* Ligeramente más transparente del mismo color */
+  color: var(--uvaclub-dark-purple-gradient-end);
+  transform: translateY(-2px);
+}
+
+.btn-outline-light { /* Botón secundario del hero */
+  border: 2px solid var(--uvaclub-text-on-dark); /* Borde #FFF3E5 */
+  color: var(--uvaclub-text-on-dark); /* Texto #FFF3E5 */
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-width: 178px;
+  height: 50px;
+}
+
+.btn-outline-light:hover {
+  background-color: var(--uvaclub-text-on-dark); /* Fondo #FFF3E5 al hover */
+  color: var(--uvaclub-dark-purple-gradient-end); /* Texto #4A0E5C al hover */
+}
+
+.btn-dark { /* Botones como el del formulario de contacto y CTA final */
+  background-color: var(--uvaclub-dark-purple-gradient-end); /* Morado oscuro */
+  border: none;
+  color: var(--uvaclub-text-on-dark); /* Texto #FFF3E5 */
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-width: 178px;
+  height: 50px;
+}
+
+.btn-dark:hover {
+  background-color: var(--uvaclub-dark-blue-gradient-start); /* Tono más oscuro al hover */
+}
+
+/* 5. SECCIONES */
+section {
+  padding: 100px 0;
+}
+
+section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  position: relative;
+  color: var(--uvaclub-text-on-light); /* Color de texto para fondos claros (#4A0E5C) */
+}
+
+section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--uvaclub-text-on-light); /* La línea bajo el título también del color de texto para fondos claros */
+  margin: 20px auto 0;
+}
+
+/* 6. CARDS */
+.card {
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+  background-color: #fff; /* Asegurar que las tarjetas sean blancas para un buen contraste */
+}
+
+/* Removido el transform: translateY(-5px) de .card:hover para evitar doble efecto si se usa con imágenes */
+/* Si deseas que solo la tarjeta se eleve y no la imagen, lo volveríamos a poner y ajustaríamos otras reglas */
+/* .card:hover {
+  transform: translateY(-5px);
+} */
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--uvaclub-text-on-light); /* Títulos de tarjeta en morado oscuro */
+}
+
+.masonry__container {
+  column-count: 4;
+  column-gap: 1rem;
+}
+
+.masonry__item {
+  width: 100%;
+  display: block;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.card-text {
+  color: var(--secondary-color); /* Puedes ajustar este a var(--uvaclub-text-on-light) si prefieres */
+}
+
+/* 7. TESTIMONIOS */
+.blockquote {
+  background-color: var(--uvaclub-background-light); /* Fondo del blockquote */
+  border-left: 4px solid var(--uvaclub-dark-purple-gradient-end); /* Borde en morado oscuro */
+  padding: 20px;
+  border-radius: 5px;
+}
+.blockquote-footer {
+    color: var(--secondary-color);
+}
+
+/* 8. FORMULARIO */
+form .form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+}
+
+form button.btn-dark { /* El botón de tu formulario de contacto usa btn-dark */
+  background-color: var(--uvaclub-dark-purple-gradient-end); /* Tu morado oscuro principal */
+  border: none;
+  width: 100%;
+  border-radius: 50px; /* Bordes redondeados para este botón específico */
+  margin-top: 20px;
+  color: var(--uvaclub-text-on-dark); /* Texto #FFF3E5 */
+}
+form button.btn-dark:hover {
+    background-color: var(--uvaclub-dark-blue-gradient-start); /* Hover con el azul oscuro */
+}
+
+
+/* 9. FOOTER */
+footer {
+  background-color: var(--uvaclub-dark-blue-gradient-start); /* Fondo oscuro del footer */
+  color: var(--uvaclub-text-on-dark); /* Texto #FFF3E5 */
+  font-size: 0.9rem;
+}
+footer .p-custom { /* Sobrescribe el p-custom para el footer */
+    color: var(--uvaclub-text-on-dark);
+    opacity: 0.8;
+}
+
+/* 10. IMÁGENES */
+img.rounded-circle {
+  border: 5px solid var(--uvaclub-background-light); /* Borde con el color de fondo principal */
+}
+
+/* 11. GALERÍA */
+.img-rounded {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.img-rounded.rounded {
+    border-radius: 8px;
+}
+
+
+/* ============================== */
+/* CUSTOM HELPER CLASSES */
+/* ============================== */
+
+/* TITULOS */
+.h1-custom, .h2-custom, .h3-custom, .h4-custom {
+    color: var(--uvaclub-text-on-light); /* Por defecto, los títulos son de este color */
+    font-family: "Yeseva One", serif; /* <-- ¡Añade esta línea! */
+}
+
+/* PÁRRAFOS Y TEXTOS */
+.p-custom {
+    color: var(--secondary-color); /* Color por defecto para párrafos */
+}
+.lead-custom {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+
+/* FONDOS E IMÁGENES */
+.bg-cover {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-overlay-light {
+  background-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(5px);
+}
+
+.bg-overlay-dark {
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  color: #fff;
+}
+
+/* TEXTOS ADICIONALES */
+.text-uppercase-custom {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-muted-custom {
+  color: #6c757d;
+}
+
+/* ESPACIADOS */
+.section-spacing {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.section-spacing-sm {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+
+/* ============================== */
+/* ESTILOS ESPECÍFICOS PARA SECCIONES NUEVAS/MODIFICADAS */
+/* ============================== */
+
+/* Sección de BENEFICIOS (SECCIÓN F) */
+#beneficios {
+    background-color: var(--uvaclub-background-light); /* Fondo #FFF3E5 */
+}
+
+.benefit-item {
+    padding: 20px;
+}
+
+.benefit-icon {
+    width: 100px;
+    height: 100px;
+    background-color: var(--uvaclub-dark-purple-gradient-end); /* Morado oscuro para el círculo */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+}
+
+.benefit-icon i {
+    font-size: 3rem !important;
+    color: var(--uvaclub-text-on-dark) !important; /* #FFF3E5 para los íconos */
+}
+
+.benefit-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--uvaclub-text-on-light); /* Título en morado oscuro */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.benefit-description {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+/* ABOUT SECTION - Quienes Somos */
+.about-us-content-row {
+    margin-bottom: 50px;
+}
+
+/* PLANES DE SUSCRIPCIÓN */
+#planes-suscripcion {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), /* Capa 1: Opacidad sobre la imagen */
+    /* Añadimos posición, tamaño y no-repeat directamente a la imagen */
+    url('../imagenes/fondo-textura.png') -122.121px 0px / 112.593% 100% no-repeat, /* Capa 2: imagen con estilos específicos */
+    linear-gradient(to right, var(--uvaclub-dark-blue-gradient-start), var(--uvaclub-dark-purple-gradient-end)); /*  ¡TU GRADIENTE ORIGINAL! */
+  
+  /* background-size, background-position, background-repeat ya no son necesarios aquí globalmente,
+     porque están definidos para la imagen en la línea de 'url()' */
+  /* background-size: cover; /* COMENTAR O ELIMINAR */
+  /* background-position: center center; /* COMENTAR O ELIMINAR */
+  /* background-repeat: no-repeat; /* COMENTAR O ELIMINAR */
+
+  /* El blend-mode para la imagen debe ser 'luminosity' */
+  background-blend-mode: overlay, luminosity, normal; /* blend-mode para: (capa opacidad), (imagen), (gradiente) */
+
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+/* Textos dentro de la sección de planes (que ahora tiene fondo oscuro) */
+#planes-suscripcion .h2-custom,
+#planes-suscripcion .p-custom {
+  color: var(--uvaclub-text-on-dark); /* #FFF3E5 para títulos y párrafos en sección de planes */
+}
+#planes-suscripcion section h2::after { /* La línea bajo el título de planes */
+  background: var(--uvaclub-text-on-dark); /* #FFF3E5 */
+}
+
+/* Estilos adicionales para los componentes de la tarjeta de planes */
+.card-title-plan {
+    color: var(--uvaclub-text-on-light); /* Título de la tarjeta, asumo que la tarjeta es blanca */
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.price-text {
+    color: var(--uvaclub-dark-purple-gradient-end); /* El precio en morado oscuro */
+    font-weight: 700;
+}
+
+.plan-badge-recommended {
+    background-color: var(--uvaclub-dark-blue-gradient-start) !important; /* El badge en azul oscuro */
+    font-weight: 500;
+}
+
+.plan-includes-title strong {
+    color: var(--uvaclub-dark-purple-gradient-end); /* El texto fuerte en morado oscuro */
+}
+
+.plan-features-list {
+    margin-top: 15px;
+    padding-left: 0;
+}
+
+.plan-features-list li {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    color: var(--secondary-color);
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Asegurar que los botones de los planes tengan el estilo correcto */
+.card .btn-primary { /* Sobrescribe el btn-primary genérico para estos botones */
+    background-color: var(--uvaclub-dark-purple-gradient-end); /* Fondo de botón en morado oscuro */
+    color: var(--uvaclub-text-on-dark); /* Texto del botón en #FFF3E5 */
+    border-radius: 5px;
+    width: auto;
+    padding: 10px 25px;
+    transform: none;
+}
+
+.card .btn-primary:hover {
+    background-color: var(--uvaclub-dark-blue-gradient-start); /* Hover con el azul oscuro */
+    color: var(--uvaclub-text-on-dark);
+    transform: translateY(-2px);
+}
+
+/* Galería (sección con id="galeria") */
+#galeria .h2-custom, #galeria .p-custom {
+    color: var(--uvaclub-text-on-light); /* Títulos y párrafos en morado oscuro */
+}
+
+
+/* Asegurar que los colores de Bootstrap se mapeen a tus variables */
+/* Esto es importante para las clases como text-primary que Bootstrap usa */
+.text-primary {
+    color: var(--uvaclub-text-on-light) !important; /* Si usas text-primary, que sea el color del texto sobre fondos claros */
+}
+
+.bg-primary {
+    background-color: var(--uvaclub-text-on-light) !important;
+}
+
+/* Estilos para la sección de Beneficios (donde van los iconos en círculo) */
+/* Asegúrate que los títulos y párrafos de esta sección tengan el color adecuado */
+.section-spacing.text-center.py-5 .h2-custom,
+.section-spacing.text-center.py-5 h5, /* El h5 para los títulos de cada beneficio */
+.section-spacing.text-center.py-5 .p-custom {
+  color: var(--uvaclub-text-on-light); /* Asumiendo que esta sección tiene un fondo claro y necesitas texto oscuro */
+  /* Si la sección tiene un fondo oscuro y necesitas texto claro, usa --uvaclub-text-on-dark */
+}
+
+/* Estilos para el contenedor circular del icono */
+.icon-circle {
+  width: 80px;            /* Ancho del círculo */
+  height: 80px;           /* Alto del círculo (debe ser igual al ancho) */
+  background-color: var(--uvaclub-dark-purple-gradient-end); /* Color de fondo del círculo */
+  border-radius: 50%;     /* Esto lo convierte en un círculo */
+  display: flex;          /* Habilita Flexbox para centrar el contenido */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center;    /* Centra el contenido verticalmente */
+  margin: 0 auto 20px auto; /* Centra el círculo en su columna y le da margen inferior */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil (opcional) */
+  overflow: hidden; /* Asegura que la imagen no se desborde del círculo */
+}
+
+/* Estilos para la imagen PNG dentro del círculo */
+.icon-circle img {
+  display: block; /* Ayuda a eliminar espaciado extra */
+  max-width: 60%; /* Ajusta el tamaño máximo de la imagen dentro del círculo */
+  max-height: 60%; /* Asegura que no sea más alta que el 60% del círculo */
+  width: auto;    /* Permite que el ancho se ajuste manteniendo la proporción */
+  height: auto;   /* Permite que el alto se ajuste manteniendo la proporción */
+  object-fit: contain; /* Asegura que la imagen se ajuste completamente dentro del espacio */
+}
+
+/* Otros estilos para la sección (ya los tienes, solo para referencia) */
+.section-spacing.text-center.py-5 .h2-custom,
+.section-spacing.text-center.py-5 h5,
+.section-spacing.text-center.py-5 .p-custom {
+  color: var(--uvaclub-text-on-light); /* O el color que necesites para el texto en esta sección */
+}
+.section-spacing.text-center.py-5 h5 {
+    font-family: "Yeseva One", serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+/* ============================== */
+/* MEDIA QUERIES */
+/* ============================== */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+}
+
+/* ... Mantén tus media queries de masonry y otros ... */
+
+@media screen and (max-width: 992px) {
+  .masonry__container {
+    column-count: 3;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .masonry__container {
+    column-count: 2;
+  }
+  .hero-section {
+    padding-top: 80px;
+  }
+  .h1-custom {
+    font-size: 2.8rem;
+  }
+  .p-custom {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .masonry__container {
+    column-count: 1;
+  }
+  .h1-custom {
+    font-size: 2rem;
+  }
+  .section-spacing {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .card .btn-primary {
+      width: 100%;
+  }
+  .d-flex.gap-3 {
+    flex-direction: column;
+    align-items: center;
+  }
+}
