@@ -81,7 +81,7 @@ body {
      2. Tu gradiente vertical principal.
   */
   background:
-    url('../imagenes/textura-hero.jpg') -0.023px -332.369px / 100.002% 125.885% no-repeat, /* 1. Tu imagen de textura con sus estilos */
+    url('imagenes/textura-hero.jpg') -0.023px -332.369px / 100.002% 125.885% no-repeat, /* 1. Tu imagen de textura con sus estilos */
     linear-gradient(to bottom, var(--uvaclub-dark-blue-gradient-start), var(--uvaclub-dark-purple-gradient-end)); /* 2. ¡Tu gradiente vertical original! */
   
   /* El 'lightgray' de tu estilo original puede ser el background-color del elemento si es un fallback
